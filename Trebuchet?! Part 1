@@ -1,0 +1,44 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String []args) throws FileNotFoundException {
+        File calibr_doc = new File("src/input.txt");
+        Scanner fileIn = new Scanner(calibr_doc);
+
+        int total = 0;
+        while(fileIn.hasNextLine()) {
+            String temp = fileIn.nextLine();
+            total += digiGrabber(temp);
+        }
+        System.out.println(total);
+    }
+
+    private static int digiGrabber(String temp){
+        String [] valArray = temp.split("(?!^)");
+        StringBuilder val = new StringBuilder("0");
+
+        for(int i = 0; i < valArray.length; i++){
+            //check if char is a numeral 0 - 9
+            if (valArray[i].equals("9") ||
+                    valArray[i].equals("8") ||
+                    valArray[i].equals("7") ||
+                    valArray[i].equals("6") ||
+                    valArray[i].equals("5") ||
+                    valArray[i].equals("4") ||
+                    valArray[i].equals("3") ||
+                    valArray[i].equals("2") ||
+                    valArray[i].equals("1") ||
+                    valArray[i].equals("0")){
+                val.append(valArray[i]);
+            }
+        }
+
+        String returnVal = String.valueOf(val.charAt(1));
+        returnVal += String.valueOf(val.charAt(val.length() - 1));
+
+        int num = Integer.parseInt(returnVal);
+        return num;
+    }
+}
