@@ -1,0 +1,54 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String []args) throws FileNotFoundException {
+        File calibr_doc = new File("src/input.txt");
+        Scanner fileIn = new Scanner(calibr_doc);
+
+        int total = 0;
+        while(fileIn.hasNextLine()) {
+            String temp = fileIn.nextLine();
+            total += digiGrabber(temp);
+        }
+        System.out.println(total);
+    }
+
+    private static int digiGrabber(String temp){
+        //case sensitive
+        temp = temp.replaceAll("one", "o1e");
+        temp = temp.replaceAll("two", "t2o");
+        temp = temp.replaceAll("three", "t3ree");
+        temp = temp.replaceAll("four", "f4ur");
+        temp = temp.replaceAll("five", "f5ve");
+        temp = temp.replaceAll("six", "s6x");
+        temp = temp.replaceAll("seven", "s7ven");
+        temp = temp.replaceAll("eight", "e8ght");
+        temp = temp.replaceAll("nine", "n9ne");
+        
+        String [] valArray = temp.split("(?!^)");
+        ArrayList<String> val = new ArrayList<>();
+
+        for (String s : valArray) {
+            if (s.equals("9") ||
+                    s.equals("8") ||
+                    s.equals("7") ||
+                    s.equals("6") ||
+                    s.equals("5") ||
+                    s.equals("4") ||
+                    s.equals("3") ||
+                    s.equals("2") ||
+                    s.equals("1") ||
+                    s.equals("0")) {
+                val.add(s);
+            }
+        }
+
+        String returnVal = val.getFirst();
+        returnVal += val.getLast();
+
+        return Integer.parseInt(returnVal);
+    }
+}
